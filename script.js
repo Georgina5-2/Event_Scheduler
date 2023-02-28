@@ -1,3 +1,5 @@
+var saveButton=$('.btn saveBtn col-2 col-md-1');
+var textEvent=$('.col-8 col-md-10 description');
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -20,4 +22,42 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
+
+
+
+
+
 });
+
+
+ init();
+ function init()
+ {
+
+ }
+ function StoreEvent()
+{
+  if textEvent.textContent=""
+  {
+    alert("Please enter the event scheduled");
+  }
+  else
+  {
+    event.preventDefault();
+  }
+}
+  textEvent.on('change',function(event)
+  {
+      var key=event.key;
+      var alphaNumericCharacters='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+      var eventToBeStored="";
+      if(alphaNumericCharacters.includes(key))
+      {
+        eventToBeStored+=event.key;
+        textEvent.textContent=eventToBeStored;
+        
+      }
+});
+saveButton.on('click',StoreEvent);
+
+

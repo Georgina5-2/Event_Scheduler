@@ -1,5 +1,6 @@
 var saveButton=$('.btn saveBtn col-2 col-md-1');
 var textEvent=$('.col-8 col-md-10 description');
+var currentDayAndDate=$('#currentDay');
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -30,22 +31,28 @@ $(function () {
 });
 
 
- init();
+ 
+
+
+
  function init()
  {
-
+    var today=dayjs();
+    currentDayAndDate.text(today.format('dddd, MMMM Do'));
  }
- function StoreEvent()
+ function StoreEvent(event)
 {
-  if textEvent.textContent=""
+  if(textEvent.text="")
   {
     alert("Please enter the event scheduled");
   }
   else
   {
     event.preventDefault();
+    
   }
 }
+init();
   textEvent.on('change',function(event)
   {
       var key=event.key;

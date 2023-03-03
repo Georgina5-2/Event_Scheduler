@@ -63,7 +63,7 @@ Click on the tab 'Code' and copy the link to the repository
 
 ![Screenshot 2023-03-02 233935](https://user-images.githubusercontent.com/122113060/222636902-6a65049c-5628-44af-9063-fd724e5db26d.png)
 
-*When the page is loaded, that same event is displayed on the textbox provided
+* When the page is loaded, that same event is displayed on the textbox provided
 
 ![Screenshot 2023-03-02 233921](https://user-images.githubusercontent.com/122113060/222636994-6dbe24c2-51c2-4388-a8c1-008cb683b8b1.png)
 

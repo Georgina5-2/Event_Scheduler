@@ -1,13 +1,11 @@
-var saveButton=$('.btn saveBtn col-2 col-md-1');
-var textEvent=$('.col-8 col-md-10 description');
+var saveButton=$('.btn.saveBtn.col-2.col-md-1');
+
 var currentDayAndDate=$('#currentDay');
 var timeElement=$('.col-2 col-md-1 hour text-center py-3');
-var textElement=$('.col-8 col-md-10 description');
+var descElement=$('.col-8.col-md-10.description');
 var buttonElement=$('.btn saveBtn col-2 col-md-1');
-var saveImage=$('.fas fa-save');
-var pastElement=$('.row time-block past');
-var presentElement=$('.row time-block present');
-var futureElement=$('.row time-block future');
+
+
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
@@ -40,103 +38,149 @@ $(function () {
 
 var plannerTime=[];
 plannerTime=[9,10,11,12,1,2,3,4,5];
+scheduleArray=[];
 
- 
+
+function colorCode()
+{
+  var today=dayjs();
+  currentDayAndDate.text(today.format('dddd, MMMM Do'));
+  var currentTime=today.format('h');
+  console.log(currentTime);
+  console.log(typeof currentTime);  
+
+  // {
+    var foundTime=plannerTime.find(element=>element===(parseInt(currentTime)));
+    console.log("Value of foundtime",foundTime);
+    console.log("Type of foundtime",typeof foundTime);
+
+    if(foundTime)
+    {
+      var findCurrentTime=element=>element===(parseInt(currentTime));
+      var indexOfTime=plannerTime.findIndex(findCurrentTime);
+      console.log("index of time",indexOfTime);
+      // {
+        if(indexOfTime=0)
+        {
+          // $('#hour-'+plannerTime[0]).classList.remove('row time-block');
+          // $('#hour-'+plannerTime[0]).classList.add('row time-block present');
+          $('#hour-'+plannerTime[0]).attr('class','row time-block present');
+          for(var j=1;j<plannerTime.length;j++)
+          {
+            // $('#hour-'+plannerTime[j]).classList.remove('row time-block');
+            // $('#hour-'+plannerTime[j]).classList.add('row time-block future');
+            $('#hour-'+plannerTime[j]).attr('class','row time-block future');
+          }
+        }
+        else
+        {
+          if(indexOfTime=plannerTime.length-1)
+          {
+            // $('#hour-'+plannerTime[currentTime.length-1]).classList.remove('row time-block');
+            // $('#hour-'+plannerTime[currentTime.length-1]).classList.add('row time-block present');
+            $('#hour-'+plannerTime[currentTime.length-1]).attr('class','row time-block present');
+            for( var j=plannerTime.length-1;j=1;j--)
+            {
+              // $('#hour-'+plannerTime[j-1]).classList.remove('row time-block');
+              // $('#hour-'+plannerTime[j-1]).classList.add('row time-block past');
+              $('#hour-'+plannerTime[j-1]).attr('class','row time-block past');
+              
+            }
+          }
+          else
+          {
+            // $('#hour-'+plannerTime[indexOfTime]).classList.remove('row time-block');
+            // $('#hour-'+plannerTime[indexOfTime]).classList.add('row time-block present');
+            $('#hour-'+plannerTime[indexOfTime]).attr('class','row time-block present');
+            for(var k=0;k<indexOfTime;k++)
+            {
+              ($('#hour-'+plannerTime[k]).attr('class','row time-block past'));
+              
+            }
+
+            for(var l=indexOfTime+1;l<plannerTime.length;l++)
+            {
+              ($('#hour-'+plannerTime[l]).attr('class','row time-block future'));
+            }
+          }
+        }
+    }
+    // }
+    else
+    {
+      for( var j=0;j<plannerTime.length;j++)
+      {
+        // $('#hour-'+plannerTime[j]).classList.remove('row time-block');
+        // $('#hour-'+plannerTime[j]).classList.add('row time-block past');
+        $('#hour-'+plannerTime[j]).attr('class','row time-block past');
+      }
+    }
+  
+
+}
+
+
+function loadLocalStorageData()
+{
+  var currentSchedule=JSON.parse(localStorage.getItem("mySchedules"));
+  scheduleArray=(!currentSchedule)?[]:currentSchedule;
+  console.log("Current Schedule in the planner: ", currentSchedule, typeof currentSchedule);
+  if(scheduleArray.length)
+  {
+    console.log("Array length: ", scheduleArray.length);
+    $.each(scheduleArray, function( index, scheduleArrayItem ) {
+      console.log('scheduleArrayItem :: ', scheduleArrayItem)
+      $('button[data-hour="'+scheduleArrayItem.hour+'"]').prev().val(scheduleArrayItem.description);
+    });
+    
+  }
+}
 
 
 
  function init()
  {
-    var today=dayjs();
-    currentDayAndDate.text(today.format('dddd, MMMM Do'));
-    var currentTime=today.format('h');
-    console.log(currentTime);
-    console.log(typeof currentTime);  
-    // for(var i=0;i<plannerTime.length;i++)
-    // {
-      var foundTime=plannerTime.find(element=>element==currentTime);
-      console.log("Value of foundTime",foundTime);
-      console.log("Type of foundTime",typeof foundTime);
-
-      if(foundTime)
-      {
-        var indexOfTime=plannerTime.findIndex(foundTime);
-        // {
-          if(indexOfTime=0)
-          {
-            // $('#hour-'+plannerTime[0]).classList.remove('row time-block');
-            // $('#hour-'+plannerTime[0]).classList.add('row time-block present');
-            $('#hour-'+plannerTime[0]).attr('class','row time-block present');
-            for(var j=1;j<plannerTime.length;j++)
-            {
-              // $('#hour-'+plannerTime[j]).classList.remove('row time-block');
-              // $('#hour-'+plannerTime[j]).classList.add('row time-block future');
-              $('#hour-'+plannerTime[j]).attr('class','row time-block future');
-            }
-          }
-          else
-          {
-            if(indexOfTime=plannerTime.length-1)
-            {
-              // $('#hour-'+plannerTime[currentTime.length-1]).classList.remove('row time-block');
-              // $('#hour-'+plannerTime[currentTime.length-1]).classList.add('row time-block present');
-              $('#hour-'+plannerTime[currentTime.length-1]).attr('class','row time-block present');
-              for( var j=plannerTime.length-1;j=1;j--)
-              {
-                // $('#hour-'+plannerTime[j-1]).classList.remove('row time-block');
-                // $('#hour-'+plannerTime[j-1]).classList.add('row time-block past');
-                $('#hour-'+plannerTime[j-1]).attr('class','row time-block past');
-                
-              }
-            }
-            else
-            {
-              // $('#hour-'+plannerTime[indexOfTime]).classList.remove('row time-block');
-              // $('#hour-'+plannerTime[indexOfTime]).classList.add('row time-block present');
-              $('#hour-'+plannerTime[indexOfTime]).attr('class','row time-block present');
-
-            }
-          }
-      }
-      // }
-      else
-      {
-        for( var j=0;j<plannerTime.length;j++)
-        {
-          // $('#hour-'+plannerTime[j]).classList.remove('row time-block');
-          // $('#hour-'+plannerTime[j]).classList.add('row time-block past');
-          $('#hour-'+plannerTime[j]).attr('class','row time-block past');
-        }
-      }
-    
-  
+   
+  colorCode();
+  loadLocalStorageData();
+   
 }
 
  function StoreEvent(event)
 {
-  if(textEvent.text="")
+  console.log("this: ", this);
+  var selectedHour=this.dataset['hour'];
+  var desc=$(this).prev().val();
+  console.log("selected hour: ", selectedHour);
+  console.log("description: ", desc);
+  var dataToSave={ "hour":selectedHour, "description": desc };
+console.log(dataToSave);
+  if(!desc)
   {
     alert("Please enter the event scheduled");
   }
   else
   {
     event.preventDefault();
-  
+    objIndex = scheduleArray.findIndex((obj => obj.hour == selectedHour));
+    if(objIndex > -1)
+    {
+      scheduleArray[objIndex].description = desc;
+
+    }
+    else
+    {
+      scheduleArray.push(dataToSave);
+    }
+    console.log("Array contents: ", scheduleArray);
+      localStorage.setItem("mySchedules",JSON.stringify(scheduleArray ));
+
   }
 }
 init();
-//   textEvent.on('change',KeyboardEvent()
-//   {
-//       var key=KeyboardEvent.keypress();
-//       var alphaNumericCharacters='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
-//       var eventToBeStored="";
-//       if(alphaNumericCharacters.includes(key))
-//       {
-//         eventToBeStored+=event.key;
-//         textEvent.textContent=eventToBeStored;
-        
-//       }
-// });
-saveButton.on('click',StoreEvent);
+
+
+console.log("saveButton: ", saveButton);
+this.saveButton.on('click',StoreEvent);
 
 

@@ -16,18 +16,11 @@ function colorCode()
   var currentTime=today.format('H');
   console.log(currentTime);
   console.log(typeof currentTime);  
-
-  // {
-    plannerTime.find(element=>element===(parseInt(currentTime)));
-    // console.log("Value of foundtime",foundTime);
-    // console.log("Type of foundtime",typeof foundTime);
-
-    // if(foundTime)
-    // {
-      var findCurrentTime=element=>element===(parseInt(currentTime));
-      var indexOfTime=plannerTime.findIndex(findCurrentTime);
-      console.log("index of time",indexOfTime);
-      if(findCurrentTime)
+  plannerTime.find(element=>element===(parseInt(currentTime)));
+  var findCurrentTime=element=>element===(parseInt(currentTime));
+  var indexOfTime=plannerTime.findIndex(findCurrentTime);
+  console.log("index of time",indexOfTime);
+  if(findCurrentTime)
       {
         if(indexOfTime===0)
         {

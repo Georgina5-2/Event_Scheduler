@@ -5,7 +5,7 @@ var descElement=$('.col-8.col-md-10.description');
 var buttonElement=$('.btn saveBtn col-2 col-md-1');
 
 var plannerTime=[];
-plannerTime=[9,10,11,12,1,2,3,4,5];
+plannerTime=[9,10,11,12,13,14,15,16,17];
 scheduleArray=[];
 
 
@@ -18,16 +18,17 @@ function colorCode()
   console.log(typeof currentTime);  
 
   // {
-    var foundTime=plannerTime.find(element=>element===(parseInt(currentTime)));
-    console.log("Value of foundtime",foundTime);
-    console.log("Type of foundtime",typeof foundTime);
+    plannerTime.find(element=>element===(parseInt(currentTime)));
+    // console.log("Value of foundtime",foundTime);
+    // console.log("Type of foundtime",typeof foundTime);
 
-    if(foundTime)
-    {
+    // if(foundTime)
+    // {
       var findCurrentTime=element=>element===(parseInt(currentTime));
       var indexOfTime=plannerTime.findIndex(findCurrentTime);
       console.log("index of time",indexOfTime);
-      // {
+      if(findCurrentTime)
+      {
         if(indexOfTime===0)
         {
           $('#hour-'+plannerTime[0]).attr('class','row time-block present');

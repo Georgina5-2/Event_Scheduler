@@ -87,6 +87,10 @@ https://stackoverflow.com/questions/14935191/adding-data-attribute-to-dom
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
 
+# Link to the deployed code:
+
+https://georgina5-2.github.io/Event_Scheduler/
+
 
 
 
